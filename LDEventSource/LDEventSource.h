@@ -138,6 +138,12 @@ typedef void (^LDEventSourceEventHandler)(LDEvent * _Nullable event);
 /// Closes the connection to the EventSource.
 - (void)close;
 
+/// Update sent headers
+- (void)updateHeaders:(NSDictionary <NSString *, NSString *> *)httpRequestHeaders;
+
+/// Set Last Event ID
+- (void)setLastEventId:(NSString *)eventId;
+
 @end
 
 // ---------------------------------------------------------------------------------------------------------------------

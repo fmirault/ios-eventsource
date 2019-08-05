@@ -131,6 +131,16 @@ static NSInteger const HTTPStatusCodeUnauthorized = 401;
     [self.listeners removeAllObjects];
 }
 
+- (void)updateHeaders:(NSDictionary <NSString *, NSString *> *)httpRequestHeaders
+{
+    self.httpRequestHeaders = httpRequestHeaders;
+}
+
+- (void)setLastEventId:(NSString *)eventId
+{
+    self.lastEventID = eventId;
+}
+
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
 didReceiveResponse:(NSURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler
 {
@@ -219,7 +229,7 @@ didReceiveResponse:(NSURLResponse *)response completionHandler:(void (^)(NSURLSe
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:@{NSLocalizedDescriptionKey: @"Connection refused by the server."}];
     if (underlyingError) { userInfo[NSUnderlyingErrorKey] = underlyingError; }
     NSError *eventError = [NSError errorWithDomain:LDEventSourceErrorDomain
-                                              code:-HTTPStatusCodeUnauthorized
+                                              code:HTTPStatusCodeUnauthorized
                                           userInfo:userInfo.copy];
 
     return eventError;
